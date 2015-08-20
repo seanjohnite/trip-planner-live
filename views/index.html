@@ -59,10 +59,10 @@
             <button class="btn btn-circle day-btn">+</button>
           </div>
         </div>
-        <div class="panel-body">
+        <div class="panel-body" id="itinerary-panel">
           <div>
             <h4>My Hotel</h4>
-            <ul class="list-group">
+            <ul class="list-group" id="hotel-list">
               <!-- <div class="itinerary-item">
                 <span class="title">Andaz Wall Street</span>
                 <button class="btn btn-xs btn-danger remove btn-circle">x</button>
@@ -71,7 +71,7 @@
           </div>
           <div>
             <h4>My Restaurants</h4>
-            <ul class="list-group">
+            <ul class="list-group" id="restaurant-list">
               <!-- <div class="itinerary-item">
                 <span class="title">Bouley</span>
                 <button class="btn btn-xs btn-danger remove btn-circle">x</button>
@@ -84,7 +84,7 @@
           </div>
           <div>
             <h4>My Activities</h4>
-            <ul class="list-group">
+            <ul class="list-group" id="activity-list">
               <!-- <div class="itinerary-item">
                 <span class="title">Mahayana Buddhist Temple Association</span>
                 <button class="btn btn-xs btn-danger remove btn-circle">x</button>
@@ -103,9 +103,11 @@
 
 <script>
   {% autoescape false %}
-  var hotels = {{ all_hotels | json }};
-  var restaurants = {{ all_restaurants | json }};
-  var activities = {{ all_activities | json }};
+  var items = {
+    Hotels: {{ all_hotels | json }},
+    Restaurants: {{ all_restaurants | json }},
+    Activities: {{ all_activities | json }}
+  };
   {% endautoescape %}
 </script>
 
