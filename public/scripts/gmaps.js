@@ -28,7 +28,7 @@ function initialize_gmaps() {
   //   [40.716291, -73.995315],
   //   [40.707119, -74.003602]
   // ];
-  
+
 
   return map;
 }
@@ -53,6 +53,7 @@ $(document).ready(function() {
     opts.position = new google.maps.LatLng(location[0], location[1]);
     opts.map = googleMap;
     var marker = new google.maps.Marker(opts);
+    return marker;
   };
 
 });
