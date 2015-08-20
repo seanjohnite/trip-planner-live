@@ -13,7 +13,6 @@ function makeListItem (name, index) {
 
 var dayArr = [{Hotels: [], Restaurants: [], Activities: []}], day = 0;
 
-console.log('hey our project is bitching')
 
 $(document).ready(function() {
   $('#item-selector').on('click', 'button', function () {
@@ -22,11 +21,7 @@ $(document).ready(function() {
     var choice = items[type].filter(function (hotel) {
       return selection === hotel.name;
     })[0];
-    console.log(location);
     var listItem = makeListItem(selection, dayArr[day][type].length);
-    if(!choice.marker) {
-      choice.marker = [];
-    }
     var marker;
     switch(type) {
       case 'Hotels':
@@ -42,19 +37,40 @@ $(document).ready(function() {
         marker = drawLocation(choice.place[0].location, icons.activity);
         break;
     }
-    choice.marker.push(marker);
-    dayArr[day][type].push(choice);
+    dayArr[day][type].push({data: choice, marker: marker});
   });
 
   $('#itinerary-panel').on('click', 'button', function () {
+    
+
+    var type = $(this).parent().parent().prev().text().slice(3).trim();
+    var index = Number($(this).parent().data('index'));
+    var marker = dayArr[day][type][index].marker;
+
+    // remove marker from map
+    marker.setMap(null);
+
     $(this).parent().remove();
+    // remove thing from particular array in dayArr 
+    console.log("deleting", dayArr[day][type].splice(index, 1));
+    
   });
+
+
+
+  // functionality for day plus button
+
+  // functionality for day switch button
+
+  // day remove button
+
+  // day switch buttons
+
+  // map zooming functionality
 });
 
 
-// remove things from lower panel with x button
 
-// add locations with icons to map and rezoom
 
 // switch between days
 
