@@ -42,10 +42,12 @@ $(document).ready(function() {
 
   $('#itinerary-panel').on('click', 'button', function () {
     
-
-    var type = $(this).parent().parent().prev().text().slice(3).trim();
+    var parentUl = $(this).parent().parent();
+    var type = parentUl.prev().text().slice(3).trim();
     var index = Number($(this).parent().data('index'));
     var marker = dayArr[day][type][index].marker;
+
+
 
     // remove marker from map
     marker.setMap(null);
@@ -53,12 +55,22 @@ $(document).ready(function() {
     $(this).parent().remove();
     // remove thing from particular array in dayArr 
     console.log("deleting", dayArr[day][type].splice(index, 1));
+
+
+    parentUl.children().each(function (index, item) {
+      console.log(index);
+      $(item).data('index', index);
+    });
     
   });
+
+  $('.day-buttons::last')
 
 
 
   // functionality for day plus button
+
+
 
   // functionality for day switch button
 
