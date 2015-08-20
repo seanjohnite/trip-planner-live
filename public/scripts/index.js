@@ -22,9 +22,6 @@ $(document).ready(function() {
       return selection === hotel.name;
     })[0];
     var listItem = makeListItem(selection, dayArr[day][type].length);
-    if(!choice.marker) {
-      choice.marker = [];
-    }
     var marker;
     switch(type) {
       case 'Hotels':
@@ -40,26 +37,35 @@ $(document).ready(function() {
         marker = drawLocation(choice.place[0].location, icons.activity);
         break;
     }
-    choice.marker.push(marker);
-    dayArr[day][type].push(choice);
+    dayArr[day][type].push({data: choice, marker: marker});
   });
 
   $('#itinerary-panel').on('click', 'button', function () {
     
 
-    var type = $(this).parent().parent().prev().text().slice(3).trim();
+    var parentUl = $(this).parent().parent();
+    var type = parentUl.prev().text().slice(3).trim();
     var index = Number($(this).parent().data('index'));
-    var marker = dayArr[day][type][index].marker.shift();
+    var marker = dayArr[day][type][index].marker;
+
+
 
     // remove marker from map
     marker.setMap(null);
 
     $(this).parent().remove();
-    // remove thing from particular array in dayArr
-    if (!dayArr[day][type][index].marker.length) 
-      console.log("deleting", dayArr[day][type].splice(index, 1));
+    // remove thing from particular array in dayArr 
+    console.log("deleting", dayArr[day][type].splice(index, 1));
+
+
+    parentUl.children().each(function (index, item) {
+      console.log(index);
+      $(item).data('index', index);
+    });
     
   });
+
+  $('.day-buttons::last')
 
 
 
