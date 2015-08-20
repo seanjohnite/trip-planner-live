@@ -3,10 +3,24 @@
 
 // add things to lower panel with add button
 
+
 // log out the hotel name when + button clicked
 
-$('#item-selector').on('click', 'button', function () {
-  $(this)
+// <!-- <div class="itinerary-item">
+//   <span class="title">Bouley</span>
+//   <button class="btn btn-xs btn-danger remove btn-circle">x</button>
+// </div>
+
+
+$(document).ready(function() {
+  $('#item-selector').on('click', 'button', function () {
+    var selection = $(this).prev().children('option').filter(':selected').text();
+    var type = $(this).parent().find('h4').text();
+    // var type1 = $(this).prev().prev().text();
+    switch(type) {
+      case 'Hotels':
+    }
+  });
 });
 
 
