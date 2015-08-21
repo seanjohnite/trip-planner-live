@@ -78,7 +78,7 @@ $(document).ready(function() {
 
     dayArr.push({Hotels: [], Restaurants: [], Activities: []});
 
-    switchDay(currentDay, nextDay, $dayClone.clone());
+    switchDay(currentDay, nextDay, $dayClone.clone(), true);
 
     day = nextDay;
     // day = dayArr.length;
@@ -101,7 +101,7 @@ $(document).ready(function() {
     var currentDay = day;
     var newDay = $(this).index();
 
-    switchDay(currentDay, newDay, dayArr[newDay].$jQNode);
+    switchDay(currentDay, newDay, dayArr[newDay].$jQNode, true);
 
     day = newDay;
     // $('#itinerary-panel').append(dayArr[index].$jQNode);
@@ -119,38 +119,43 @@ $(document).ready(function() {
     $($('.day-buttons > *')[removedButtonNumber])
     .remove();
 
-    var newDay = day;
+    var newDay, changeDom;
+    var oldDay = day;
     if (day === dayArr.length - 1) {
-      console.log('choosing to remove last day added');
+      changeDom = true;
       newDay = day - 1;
-      console.log('current button length ', $('.day-buttons > *').length)
       var buttonToAddClass = $('.day-buttons > *').length - 2;
-      console.log(buttonToAddClass);
       $($('.day-buttons > *')[buttonToAddClass]).addClass('current-day');
+      switchDay(oldDay, newDay, dayArr[newDay].$jQNode, changeDom);
+      day = newDay;
     } else {
-      $($('.day-buttons > *')[day]).addClass('current-day');
+      changeDom = false;
+      newDay = day + 1;
+      switchDay(oldDay, newDay, dayArr[newDay].$jQNode, changeDom);
+      // $($('.day-buttons > *')[day]).addClass('current-day');
     }
 
     // switch day to day at current index after splicing out
-    var oldDay = day;
+
+    console.log('old', oldDay, 'new', newDay);
     
-    switchDay(oldDay, newDay, dayArr[newDay].$jQNode);
 
     dayArr.splice(day, 1);
 
-    day = newDay;
+    
 
   });
 
 
-  function switchDay(oldDay, newDay, newNode) {
+  function switchDay(oldDay, newDay, newNode, changeDom) {
+    console.log(dayArr);
 
     dayArr[oldDay].$jQNode = $('#itinerary-panel > *').detach();
     adjMarkers(dayArr[oldDay], null);
-    if (oldDay !== newDay) {
+    if (changeDom) {
       $($('.day-buttons > *')[oldDay]).removeClass('current-day');
+      $('#day-title').find('span').text('Day ' + (Number(newDay) + 1));
     }
-    $('#day-title').find('span').text('Day ' + (Number(newDay) + 1));
     $('#itinerary-panel').append(newNode);
     adjMarkers(dayArr[newDay], googleMap);
   }
