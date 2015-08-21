@@ -41,7 +41,7 @@ $(document).ready(function() {
   });
 
   $('#itinerary-panel').on('click', 'button', function () {
-    
+
 
     var parentUl = $(this).parent().parent();
     var type = parentUl.prev().text().slice(3).trim();
@@ -54,7 +54,7 @@ $(document).ready(function() {
     marker.setMap(null);
 
     $(this).parent().remove();
-    // remove thing from particular array in dayArr 
+    // remove thing from particular array in dayArr
     console.log("deleting", dayArr[day][type].splice(index, 1));
 
 
@@ -62,13 +62,22 @@ $(document).ready(function() {
       console.log(index);
       $(item).data('index', index);
     });
-    
+
   });
 
-  $('.day-buttons::last')
+  $('.day-buttons:last-child').on('click', function() {
+    //DOM things
+      //update the current-day class
+      //prepend next day to DOM
+      //updated the day-title
+      //note for day-switching: detach is the way to go
 
+    //Server things
+      // update day Number
+      // add new day object
+      // store old Dom elements (again detach is helpful)
 
-
+  });
   // functionality for day plus button
 
   // functionality for day switch button
@@ -78,6 +87,9 @@ $(document).ready(function() {
   // day switch buttons
 
   // map zooming functionality
+
+
+
 });
 
 
