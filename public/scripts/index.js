@@ -74,7 +74,7 @@ $(document).ready(function() {
   $('.plus-button').on('click', function() {
     //DOM things
       //update the current-day class
-    
+
     var currentDay = day;
     var nextDay = dayArr.length;
 
@@ -115,7 +115,7 @@ $(document).ready(function() {
 
   $('#day-title > .remove').on('click', function () {
     // remove day from internal day array
-    
+    if(dayArr.length <= 1) return;
     // remove last day from day button panel
     var removedButtonNumber = dayArr.length - 1;
     $($('.day-buttons > *')[removedButtonNumber])
@@ -137,14 +137,15 @@ $(document).ready(function() {
       // $($('.day-buttons > *')[day]).addClass('current-day');
     }
 
+
     // switch day to day at current index after splicing out
 
     console.log('old', oldDay, 'new', newDay);
-    
+
 
     dayArr.splice(day, 1);
 
-    
+
 
   });
 
