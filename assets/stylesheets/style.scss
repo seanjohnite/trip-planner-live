@@ -1,4 +1,5 @@
 $light-blue: #a8c9dd;
+$darker-blue: #a8c9aa;
 $medium-brown: #736357;
 $transparent: rgba(0,0,0,0);
 
@@ -116,6 +117,7 @@ h3 {
 }
 
 .day-btn {
+  margin: 1px;
   border-width: 2px;
   width: 30px;
   height: 30px;
@@ -180,4 +182,11 @@ h3 {
   > .remove {
     margin-left: 1em;
   }
+}
+
+.motto {
+  padding: 15px;
+  color: $darker-blue;
+  margin: 0;
+
 }

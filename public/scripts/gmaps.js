@@ -36,9 +36,18 @@ function initialize_gmaps() {
 var googleMap, drawLocation;
 
 var icons = {
-  hotel: {icon: '/images/lodging_0star.png'},
-  restaurant: {icon: '/images/restaurant.png'},
-  activity: {icon: '/images/star-3.png'}
+  hotel: {
+    icon: '/images/lodging_0star.png',
+    animation: google.maps.Animation.DROP
+  },
+  restaurant: {
+    icon: '/images/restaurant.png',
+    animation: google.maps.Animation.DROP
+  },
+  activity: {
+    icon: '/images/star-3.png',
+    animation: google.maps.Animation.DROP
+  }
 };
 
 

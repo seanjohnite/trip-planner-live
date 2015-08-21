@@ -15,6 +15,8 @@ var dayArr = [{Hotels: [], Restaurants: [], Activities: []}], day = 0;
 
 
 $(document).ready(function() {
+  var $dayClone = $('#itinerary-panel > *').clone();
+
   $('#item-selector').on('click', 'button', function () {
     var selection = $(this).prev().children('option').filter(':selected').text();
     var type = $(this).parent().find('h4').text();
@@ -65,16 +67,22 @@ $(document).ready(function() {
 
   });
 
-  $('.day-buttons:last-child').on('click', function() {
+  $('.plus-button').on('click', function() {
     //DOM things
       //update the current-day class
+    dayArr[day].$jQNode = $('#itinerary-panel > *').detach();
+    day++;
+    $('.current-day').removeClass('current-day');
+    var nextDay = $('<button class="btn btn-circle day-btn current-day">'+ (day + 1) + '</button>');
       //prepend next day to DOM
+    $(this).before(nextDay);
       //updated the day-title
+    $('#day-title').find('span').text('Day ' + (day + 1));
       //note for day-switching: detach is the way to go
-
+    // $('#itinerary-panel').append($dayClone);
     //Server things
-      // update day Number
       // add new day object
+    dayArr.push({Hotels: [], Restaurants: [], Activities: []});
       // store old Dom elements (again detach is helpful)
 
   });
