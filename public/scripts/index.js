@@ -41,6 +41,7 @@ $(document).ready(function() {
         break;
     }
     dayArr[day][type].push({data: choice, marker: marker});
+    zoomMarkers(dayArr[day], googleMap);
   });
 
   $('#itinerary-panel').on('click', 'button', function () {
@@ -60,6 +61,7 @@ $(document).ready(function() {
     $(this).parent().remove();
     // remove thing from particular array in dayArr
     console.log("deleting", dayArr[day][type].splice(index, 1));
+    zoomMarkers(dayArr[day], googleMap);
 
 
     // parentUl.children().each(function (index, item) {
@@ -168,6 +170,28 @@ $(document).ready(function() {
         object.marker.setMap(map);
       });
     });
+    zoomMarkers(currDay, googleMap);
+  }
+
+  function zoomMarkers(currDay) {
+    //You can create a new bounds object with new google.maps.LatLngBounds(), widen it to include a marker by doing bounds.extend(marker.position), and apply (or re-apply) it with map.fitBounds(bounds).  }
+    var bounds = new google.maps.LatLngBounds();
+    // bound.extend(new google.maps.LatLng(40.705189,-74.009209));
+    var addedBounds = false;
+
+    Object.keys(currDay).forEach(function(element) {
+      if (element === '$jQNode') return;
+      currDay[element].forEach(function(object) {
+        addedBounds = true;
+        bounds.extend(object.marker.position || fullstackCoords);
+      });
+    });
+    if (addedBounds) {
+      googleMap.fitBounds(bounds);
+    } else {
+      googleMap.setCenter(new google.maps.LatLng(40.705189,-74.009209));
+      googleMap.setZoom(13);
+    }
   }
 
   // functionality for day plus button
